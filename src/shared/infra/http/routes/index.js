@@ -1,9 +1,9 @@
 const { Router } = require('express');
 
+const usersRoutes = require('../../../../modules/users/infra/http/routes/users.routes');
+
 const routes = Router();
 
-routes.get('/', (req, res) => {
-  return res.status(200).json({ message: 'hello world' });
-});
+routes.use('/users', usersRoutes);
 
 module.exports = routes;

@@ -6,6 +6,8 @@ require('express-async-errors');
 const cors = require('cors');
 const express = require('express');
 
+// eslint-disable-next-line no-unused-vars
+const mongoose = require('../mongoose');
 const appConfig = require('../../../config/app');
 const errorsMiddleware = require('./middlewares/errors');
 const logRequest = require('./middlewares/logRequest');
