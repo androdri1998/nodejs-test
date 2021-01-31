@@ -18,7 +18,14 @@ const removeParticipantChatRoomSchema = {
   }),
 };
 
+const listParticipantChatRoomSchema = {
+  params: Joi.object({
+    chat_room_id: Joi.string().required(),
+  }),
+};
+
 module.exports = {
   addParticipantChatRoomSchema,
   removeParticipantChatRoomSchema,
+  listParticipantChatRoomSchema,
 };
