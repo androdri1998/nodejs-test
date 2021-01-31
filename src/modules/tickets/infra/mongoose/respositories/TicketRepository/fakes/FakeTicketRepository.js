@@ -29,7 +29,7 @@ class FakeTicketRepository {
   async findTicketById({ ticketId }) {
     // eslint-disable-next-line no-underscore-dangle
     const ticket = this.tickets.find(ticketFind => ticketFind._id === ticketId);
-    return { toObject: () => ticket };
+    return ticket ? { toObject: () => ticket } : null;
   }
 }
 

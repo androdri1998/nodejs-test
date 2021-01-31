@@ -24,7 +24,7 @@ app.use(express.json());
 app.use('/files', express.static(uploadConfig.uploadsFolder));
 app.use(logRequest);
 
-app.use(routes);
+app.use('/', routes);
 
 app.use(errorsMiddleware);
 
