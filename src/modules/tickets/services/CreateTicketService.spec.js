@@ -17,7 +17,7 @@ describe('CreateTicketService', () => {
   });
 
   it('should be able to create a ticket', async () => {
-    const ticket = await createTicketService.execute({
+    const { ticket } = await createTicketService.execute({
       title: 'test title',
       description: 'test description',
       imageFilename: 'image.jpg',

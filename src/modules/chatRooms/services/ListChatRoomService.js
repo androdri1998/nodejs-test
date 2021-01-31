@@ -38,7 +38,7 @@ class ListChatRoomService {
       });
     }
 
-    return chatRooms;
+    return { chat_rooms: chatRooms };
   }
 }
 

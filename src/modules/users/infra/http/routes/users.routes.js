@@ -1,6 +1,6 @@
 const { Router } = require('express');
 
-const mongoose = require('../../../../../shared/infra/mongoose');
+const mongoose = require('mongoose');
 const UsersController = require('../controllers/UsersController');
 const AuthenticateUserController = require('../controllers/AuthenticateUserController');
 const UserRepository = require('../../mongoose/repositories/UserRepository/implementations/UserRepository');

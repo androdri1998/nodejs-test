@@ -14,7 +14,7 @@ describe('AuthenticateUserService', () => {
   });
 
   it('it should be able to get user from application', async () => {
-    const user = {
+    const mockUser = {
       _id: 'c177529b-f7da-4ccb-a4bb-c7212620628a',
       username: 'john doe',
       password: '123456',
@@ -24,11 +24,11 @@ describe('AuthenticateUserService', () => {
       deleted_at: null,
     };
 
-    await fakeUserRepository.saveUser({ user });
+    await fakeUserRepository.saveUser({ user: mockUser });
 
-    const userResponse = await getUserService.execute({
+    const { user: userResponse } = await getUserService.execute({
       // eslint-disable-next-line no-underscore-dangle
-      userId: user._id,
+      userId: mockUser._id,
     });
 
     expect(userResponse).toHaveProperty('deleted_at');

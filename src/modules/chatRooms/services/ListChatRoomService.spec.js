@@ -88,7 +88,7 @@ describe('ListChatRoomService', () => {
     await fakeChatRoomsRepository.saveChatRoom({ chatRoom: chatRoom2 });
     await fakeChatRoomsRepository.saveChatRoom({ chatRoom: chatRoom3 });
 
-    const chatRooms = await listChatRoomService.execute({
+    const { chat_rooms: chatRooms } = await listChatRoomService.execute({
       userId: 'c177529b-f7da-4ccb-a4bb-c7212620628a',
       limit: 2,
       offset: 0,
@@ -169,7 +169,7 @@ describe('ListChatRoomService', () => {
     await fakeChatRoomsRepository.saveChatRoom({ chatRoom: chatRoom2 });
     await fakeChatRoomsRepository.saveChatRoom({ chatRoom: chatRoom3 });
 
-    const chatRooms = await listChatRoomService.execute({
+    const { chat_rooms: chatRooms } = await listChatRoomService.execute({
       userId: 'c177529b-f7da-4ccb-a4bb-c7212620628a',
       limit: 2,
       offset: 0,
@@ -249,7 +249,7 @@ describe('ListChatRoomService', () => {
     await fakeChatRoomsRepository.saveChatRoom({ chatRoom: chatRoom2 });
     await fakeChatRoomsRepository.saveChatRoom({ chatRoom: chatRoom3 });
 
-    const chatRooms = await listChatRoomService.execute({
+    const { chat_rooms: chatRooms } = await listChatRoomService.execute({
       userId: 'c177529b-f7da-4ccb-a4bb-c7212620628a',
       limit: 2,
       offset: 0,
@@ -329,7 +329,7 @@ describe('ListChatRoomService', () => {
     await fakeChatRoomsRepository.saveChatRoom({ chatRoom: chatRoom2 });
     await fakeChatRoomsRepository.saveChatRoom({ chatRoom: chatRoom3 });
 
-    const chatRooms = await listChatRoomService.execute({
+    const { chat_rooms: chatRooms } = await listChatRoomService.execute({
       userId: 'c177529b-f7da-4ccb-a4bb-c7212620628a',
       limit: 2,
       offset: 2,

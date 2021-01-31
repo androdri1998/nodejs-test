@@ -17,7 +17,7 @@ describe('CreateUserService', () => {
   });
 
   it('should be able to create user', async () => {
-    const user = await createUserService.execute({
+    const { user } = await createUserService.execute({
       username: 'john doe',
       password: '123456',
       profile: 'normal',

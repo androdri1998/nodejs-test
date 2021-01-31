@@ -17,7 +17,7 @@ class GetTicketService {
       url: `${appConfig.url}/files/${ticket.permalink}`,
     };
 
-    return ticketSerialized;
+    return { ticket: ticketSerialized };
   }
 }
 

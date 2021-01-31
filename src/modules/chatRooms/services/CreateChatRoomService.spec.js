@@ -28,7 +28,7 @@ describe('CreateChatRoomService', () => {
 
     await fakeTicketRepository.saveTicket({ ticket });
 
-    const chatRoom = await createChatRoomService.execute({
+    const { chat_room: chatRoom } = await createChatRoomService.execute({
       ticketId: 'c177529b-f7da-4ccb-a4bb-c7212620628a',
       description: 'test description',
       permalink: 'image.jpg',

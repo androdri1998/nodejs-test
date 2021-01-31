@@ -28,7 +28,7 @@ class ChatRoomsController {
       term,
     });
 
-    return res.status(HTTPStatusCodes.StatusCodes.CREATED).json(response);
+    return res.status(HTTPStatusCodes.StatusCodes.OK).json(response);
   }
 
   async store(req, res) {

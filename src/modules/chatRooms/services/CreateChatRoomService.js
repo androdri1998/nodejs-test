@@ -37,7 +37,7 @@ class CreateChatRoomService {
     });
 
     chatRoom = await this.chatRoomsRepository.saveChatRoom({ chatRoom });
-    return chatRoom;
+    return { chat_room: chatRoom };
   }
 }
 

@@ -1,4 +1,4 @@
-const mongoose = require('../../../../../../../shared/infra/mongoose');
+const mongoose = require('mongoose');
 const ChatRoom = require('../../../models/ChatRoom');
 
 class ChatRoomsRepository {
@@ -81,6 +81,12 @@ class ChatRoomsRepository {
     }
 
     return chatRooms;
+  }
+
+  async findChatRoomById({ chatRoomId }) {
+    const chatRoom = await ChatRoom.findById(chatRoomId);
+
+    return chatRoom;
   }
 }
 

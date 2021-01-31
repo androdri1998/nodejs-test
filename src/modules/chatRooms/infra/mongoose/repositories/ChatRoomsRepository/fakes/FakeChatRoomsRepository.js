@@ -60,6 +60,13 @@ class FakeChatRoomsRepository {
 
     return chatRooms;
   }
+
+  async findChatRoomById({ chatRoomId }) {
+    const chatRoom = this.chatRooms.find(
+      chatRoomFind => chatRoomFind._id === chatRoomId,
+    );
+    return chatRoom || null;
+  }
 }
 
 module.exports = FakeChatRoomsRepository;

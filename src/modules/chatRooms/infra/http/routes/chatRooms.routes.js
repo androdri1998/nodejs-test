@@ -1,6 +1,6 @@
 const { Router } = require('express');
 
-const mongoose = require('../../../../../shared/infra/mongoose');
+const mongoose = require('mongoose');
 const ChatRoomsRepository = require('../../mongoose/repositories/ChatRoomsRepository/implementations/ChatRoomsRepository');
 const TicketRepository = require('../../../../tickets/infra/mongoose/respositories/TicketRepository/implementations/TicketRepository');
 const UserRepository = require('../../../../users/infra/mongoose/repositories/UserRepository/implementations/UserRepository');
@@ -31,6 +31,7 @@ const chatRoomsController = new ChatRoomsController({
 });
 const participantsChatRoomsController = new ParticipantsChatRoomsController({
   chatRoomsRepository,
+  userRepository,
 });
 
 chatRoomsRoutes.post(
@@ -43,6 +44,12 @@ chatRoomsRoutes.get(
   '/chatroomsbyuser',
   [ensureAuthentication, validateParams({ schema: listChatRoomSchema })],
   chatRoomsController.index,
+);
+
+chatRoomsRoutes.get(
+  '/chat-room/:chat_room_id/participants',
+  [ensureAuthentication],
+  participantsChatRoomsController.index,
 );
 
 chatRoomsRoutes.post(

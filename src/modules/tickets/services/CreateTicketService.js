@@ -19,7 +19,7 @@ class CreateTicketService {
 
     const ticketSaved = await this.ticketRepository.saveTicket({ ticket });
 
-    return ticketSaved;
+    return { ticket: ticketSaved };
   }
 }
 

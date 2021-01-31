@@ -1,8 +1,8 @@
 const { Router } = require('express');
 const multer = require('multer');
 
+const mongoose = require('mongoose');
 const uploadConfig = require('../../../../../config/upload');
-const mongoose = require('../../../../../shared/infra/mongoose');
 const TicketRepository = require('../../mongoose/respositories/TicketRepository/implementations/TicketRepository');
 const TicketController = require('../controllers/TicketController');
 

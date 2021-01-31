@@ -13,7 +13,7 @@ describe('AuthenticateUserService', () => {
   });
 
   it('should be able to get ticket from application', async () => {
-    const ticket = {
+    const mockTicket = {
       _id: 'c177529b-f7da-4ccb-a4bb-c7212620628a',
       title: 'test title',
       description: 'test description',
@@ -23,11 +23,11 @@ describe('AuthenticateUserService', () => {
       deleted_at: null,
     };
 
-    await fakeTicketRepository.saveTicket({ ticket });
+    await fakeTicketRepository.saveTicket({ ticket: mockTicket });
 
-    const ticketResponse = await getTicketService.execute({
+    const { ticket: ticketResponse } = await getTicketService.execute({
       // eslint-disable-next-line no-underscore-dangle
-      ticketId: ticket._id,
+      ticketId: mockTicket._id,
     });
 
     expect(ticketResponse).toHaveProperty('deleted_at');

@@ -22,7 +22,7 @@ class GetUserService {
 
     user.password = undefined;
 
-    return user;
+    return { user };
   }
 }
 

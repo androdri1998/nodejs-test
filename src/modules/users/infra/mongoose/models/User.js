@@ -1,4 +1,4 @@
-const mongoose = require('../../../../../shared/infra/mongoose');
+const mongoose = require('mongoose');
 const userSchema = require('../schemas/User.schema');
 
 const User = mongoose.model('User', userSchema);
