@@ -74,6 +74,33 @@ class FakeChatRoomsRepository {
     );
     return chatRoom || null;
   }
+
+  async addMessageChatRoom({ chatRoomId, message }) {
+    const newMessage = {
+      _id: uuidV4(),
+      userId: message.userId,
+      content: message.content,
+      readed: false,
+      created_at: Date.now(),
+      updated_at: Date.now(),
+      deleted_at: null,
+    };
+    const chatRoom = this.chatRooms.find(
+      chatRoomFind => chatRoomFind._id === chatRoomId,
+    );
+
+    chatRoom.messages.push(newMessage);
+
+    const newChatRooms = this.chatRooms.filter(
+      chatRoomFind => chatRoomFind._id !== chatRoomId,
+    );
+
+    newChatRooms.push(chatRoom);
+
+    this.chatRooms = newChatRooms;
+
+    return chatRoom;
+  }
 }
 
 module.exports = FakeChatRoomsRepository;

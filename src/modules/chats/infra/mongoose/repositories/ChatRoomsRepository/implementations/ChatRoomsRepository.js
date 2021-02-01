@@ -94,6 +94,14 @@ class ChatRoomsRepository {
 
     return chatRoom;
   }
+
+  async addMessageChatRoom({ chatRoomId, message }) {
+    const chatRoom = await ChatRoom.findById(chatRoomId);
+    chatRoom.messages.push(message);
+    const newChatRoom = await chatRoom.save();
+
+    return newChatRoom;
+  }
 }
 
 module.exports = ChatRoomsRepository;

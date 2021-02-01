@@ -16,7 +16,7 @@ const ChatRoom = new Schema({
     {
       userId: Schema.Types.ObjectId,
       content: String,
-      readed: { type: Date, default: false },
+      readed: { type: Boolean, default: false },
       created_at: { type: Date, default: Date.now },
       updated_at: { type: Date, default: Date.now },
       deleted_at: { type: Date, default: null },

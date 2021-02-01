@@ -4,6 +4,7 @@ require('dotenv').config({
 });
 require('express-async-errors');
 
+const mongoose = require('mongoose');
 const cors = require('cors');
 const http = require('http');
 const socketIo = require('socket.io');
@@ -16,6 +17,8 @@ const uploadConfig = require('../../../config/upload');
 const errorsMiddleware = require('./middlewares/errors');
 const logRequest = require('./middlewares/logRequest');
 const DebugProvider = require('../../providers/LogProvider/implementations/DebugProvider');
+const ChatRoomsRepository = require('../../../modules/chats/infra/mongoose/repositories/ChatRoomsRepository/implementations/ChatRoomsRepository');
+const AddMessageChatRoomService = require('../../../modules/chats/services/AddMessageChatRoomService');
 const routes = require('./routes');
 
 const debugProvider = new DebugProvider('api:main');
@@ -34,10 +37,21 @@ app.use('/', routes);
 app.use(errorsMiddleware);
 
 io.on('connection', socket => {
-  socket.on('messageSent', ({ userId, message }) => {
-    console.log({ userId, message });
+  socket.on('messageSent', async ({ userId, content, chatRoomId }) => {
+    const chatRoomsRepository = new ChatRoomsRepository({
+      connection: mongoose,
+    });
+    const addMessageChatRoomService = new AddMessageChatRoomService({
+      chatRoomsRepository,
+    });
 
-    socket.broadcast.emit('messageReceived', { userId, message });
+    const response = await addMessageChatRoomService.execute({
+      userId,
+      chatRoomId,
+      content,
+    });
+
+    socket.broadcast.emit('messageReceived', response);
   });
 
   socket.on('setMessageReaded', ({ messageId }) => {
