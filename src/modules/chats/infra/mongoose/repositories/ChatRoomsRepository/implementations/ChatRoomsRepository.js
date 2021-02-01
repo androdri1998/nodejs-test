@@ -88,6 +88,12 @@ class ChatRoomsRepository {
 
     return chatRoom;
   }
+
+  async findChatRoomByTicketId({ ticketId }) {
+    const chatRoom = await ChatRoom.findOne({ ticketId });
+
+    return chatRoom;
+  }
 }
 
 module.exports = ChatRoomsRepository;

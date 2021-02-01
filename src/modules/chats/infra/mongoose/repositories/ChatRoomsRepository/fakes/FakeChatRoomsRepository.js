@@ -67,6 +67,13 @@ class FakeChatRoomsRepository {
     );
     return chatRoom || null;
   }
+
+  async findChatRoomByTicketId({ ticketId }) {
+    const chatRoom = this.chatRooms.find(
+      chatRoomFind => chatRoomFind.ticketId === ticketId,
+    );
+    return chatRoom || null;
+  }
 }
 
 module.exports = FakeChatRoomsRepository;

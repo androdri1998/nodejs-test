@@ -5,8 +5,12 @@ class ListMessagesChatRoomService {
     this.execute = this.execute.bind(this);
   }
 
-  async execute() {
-    return { message: 'ListMessagesChatRoomService' };
+  async execute({ ticketId }) {
+    const chatRoom = await this.chatRoomsRepository.findChatRoomByTicketId({
+      ticketId,
+    });
+
+    return { messages: chatRoom ? chatRoom.messages : null };
   }
 }
 
