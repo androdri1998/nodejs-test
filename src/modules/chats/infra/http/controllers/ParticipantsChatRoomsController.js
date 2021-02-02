@@ -2,7 +2,6 @@ const HTTPStatusCodes = require('http-status-codes');
 
 const ListParticipantsChatRoomService = require('../../../services/ListParticipantsChatRoomService');
 const AddParticipantsChatRoomService = require('../../../services/AddParticipantsChatRoomService');
-const RemoveParticipantsChatRoomService = require('../../../services/RemoveParticipantsChatRoomService');
 
 class ParticipantsChatRoomsController {
   constructor({ chatRoomsRepository, userRepository }) {
@@ -11,7 +10,6 @@ class ParticipantsChatRoomsController {
 
     this.index = this.index.bind(this);
     this.store = this.store.bind(this);
-    this.destroy = this.destroy.bind(this);
   }
 
   async index(req, res) {
@@ -31,25 +29,19 @@ class ParticipantsChatRoomsController {
   }
 
   async store(req, res) {
+    const { chat_room_id: chatRoomId } = req.params;
+    const { userId } = req.body;
     const addParticipantsChatRoomService = new AddParticipantsChatRoomService({
       chatRoomsRepository: this.chatRoomsRepository,
+      userRepository: this.userRepository,
     });
 
-    const response = await addParticipantsChatRoomService.execute();
+    const response = await addParticipantsChatRoomService.execute({
+      userId,
+      chatRoomId,
+    });
 
     return res.status(HTTPStatusCodes.StatusCodes.CREATED).json(response);
-  }
-
-  async destroy(req, res) {
-    const removeParticipantsChatRoomService = new RemoveParticipantsChatRoomService(
-      {
-        chatRoomsRepository: this.chatRoomsRepository,
-      },
-    );
-
-    const response = await removeParticipantsChatRoomService.execute();
-
-    return res.status(HTTPStatusCodes.StatusCodes.OK).json(response);
   }
 }
 

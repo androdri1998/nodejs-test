@@ -10,7 +10,6 @@ const validateParams = require('../../../../../shared/infra/http/middlewares/val
 
 const {
   addParticipantChatRoomSchema,
-  removeParticipantChatRoomSchema,
   listParticipantChatRoomSchema,
 } = require('../schemas/participantsChatRoom.schemas');
 
@@ -39,15 +38,6 @@ participantsRoutes.post(
     validateParams({ schema: addParticipantChatRoomSchema }),
   ],
   participantsChatRoomsController.store,
-);
-
-participantsRoutes.delete(
-  '/chat-room/:chat_room_id/participants',
-  [
-    ensureAuthentication,
-    validateParams({ schema: removeParticipantChatRoomSchema }),
-  ],
-  participantsChatRoomsController.destroy,
 );
 
 module.exports = participantsRoutes;

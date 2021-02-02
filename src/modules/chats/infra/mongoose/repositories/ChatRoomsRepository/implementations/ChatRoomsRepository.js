@@ -133,6 +133,17 @@ class ChatRoomsRepository {
 
     return chatRoom;
   }
+
+  async addParticipantChatRoom({ chatRoomId, user }) {
+    const chatRoom = await ChatRoom.findById(chatRoomId);
+    if (chatRoom) {
+      chatRoom.participants.push(user);
+      const newChatRoom = await chatRoom.save();
+
+      return newChatRoom;
+    }
+    return chatRoom;
+  }
 }
 
 module.exports = ChatRoomsRepository;

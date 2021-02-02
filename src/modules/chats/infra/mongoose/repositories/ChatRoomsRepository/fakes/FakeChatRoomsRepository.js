@@ -141,6 +141,28 @@ class FakeChatRoomsRepository {
 
     return chatRoom;
   }
+
+  async addParticipantChatRoom({ chatRoomId, user }) {
+    const newUser = {
+      _id: uuidV4(),
+      userId: user.userId,
+    };
+    const chatRoom = this.chatRooms.find(
+      chatRoomFind => chatRoomFind._id === chatRoomId,
+    );
+
+    chatRoom.participants.push(newUser);
+
+    const newChatRooms = this.chatRooms.filter(
+      chatRoomFind => chatRoomFind._id !== chatRoomId,
+    );
+
+    newChatRooms.push(chatRoom);
+
+    this.chatRooms = newChatRooms;
+
+    return chatRoom;
+  }
 }
 
 module.exports = FakeChatRoomsRepository;
