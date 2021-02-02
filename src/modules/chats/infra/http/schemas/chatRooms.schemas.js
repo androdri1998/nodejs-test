@@ -21,7 +21,21 @@ const storeChatRoomSchema = {
   }),
 };
 
+const chatRoomsWithNonReadMessagesSchema = {
+  user: Joi.object({
+    id: Joi.string().required(),
+  }),
+};
+
+const nonReadMessagesChatRoomSchema = {
+  params: Joi.object({
+    chat_room_id: Joi.string().required(),
+  }),
+};
+
 module.exports = {
   storeChatRoomSchema,
   listChatRoomSchema,
+  chatRoomsWithNonReadMessagesSchema,
+  nonReadMessagesChatRoomSchema,
 };

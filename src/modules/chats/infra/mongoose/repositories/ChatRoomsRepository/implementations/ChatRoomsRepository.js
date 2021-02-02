@@ -97,10 +97,41 @@ class ChatRoomsRepository {
 
   async addMessageChatRoom({ chatRoomId, message }) {
     const chatRoom = await ChatRoom.findById(chatRoomId);
-    chatRoom.messages.push(message);
-    const newChatRoom = await chatRoom.save();
+    if (chatRoom) {
+      chatRoom.messages.push(message);
+      const newChatRoom = await chatRoom.save();
 
-    return newChatRoom;
+      return newChatRoom;
+    }
+    return chatRoom;
+  }
+
+  async findChatRoomsWithNonReadMessagesToUserNormal() {
+    const chatRooms = await ChatRoom.find({
+      permission: 'normal',
+      'messages.readed': false,
+    });
+
+    return chatRooms;
+  }
+
+  async findChatRoomsWithNonReadMessages() {
+    const chatRooms = await ChatRoom.find({ 'messages.readed': false });
+
+    return chatRooms;
+  }
+
+  async setNonReadMessageChatRoomToReaded({ messageId, chatRoomId }) {
+    const chatRoom = await ChatRoom.updateOne(
+      { _id: chatRoomId, 'messages._id': messageId },
+      {
+        $set: {
+          'messages.$.readed': true,
+        },
+      },
+    );
+
+    return chatRoom;
   }
 }
 

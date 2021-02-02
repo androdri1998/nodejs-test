@@ -101,6 +101,46 @@ class FakeChatRoomsRepository {
 
     return chatRoom;
   }
+
+  async findChatRoomsWithNonReadMessagesToUserNormal() {
+    const chatRooms = this.chatRooms.filter(chatRoomFind => {
+      const isProfileNormal = chatRoomFind.permission === 'normal';
+
+      const messages = chatRoomFind.messages.filter(message => !message.readed);
+
+      return messages.length && isProfileNormal;
+    });
+
+    return chatRooms;
+  }
+
+  async findChatRoomsWithNonReadMessages() {
+    const chatRooms = this.chatRooms.filter(chatRoomFind => {
+      const messages = chatRoomFind.messages.filter(message => !message.readed);
+
+      return messages.length;
+    });
+
+    return chatRooms;
+  }
+
+  async setNonReadMessageChatRoomToReaded({ messageId, chatRoomId }) {
+    let chatRoom = null;
+    this.chatRooms.forEach(chatRoomFind => {
+      if (chatRoomId === chatRoomFind._id) {
+        chatRoomFind.messages.forEach(message => {
+          if (message._id === messageId) {
+            // eslint-disable-next-line no-param-reassign
+            message.readed = true;
+          }
+        });
+
+        chatRoom = chatRoomFind;
+      }
+    });
+
+    return chatRoom;
+  }
 }
 
 module.exports = FakeChatRoomsRepository;

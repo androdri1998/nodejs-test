@@ -14,7 +14,7 @@ class AddMessageChatRoomService {
       },
     });
 
-    return { messages: chatRoom.messages };
+    return { messages: chatRoom ? chatRoom.messages : [] };
   }
 }
 

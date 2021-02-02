@@ -5,6 +5,8 @@ const ChatRoomsRepository = require('../../mongoose/repositories/ChatRoomsReposi
 const TicketRepository = require('../../../../tickets/infra/mongoose/respositories/TicketRepository/implementations/TicketRepository');
 const UserRepository = require('../../../../users/infra/mongoose/repositories/UserRepository/implementations/UserRepository');
 const ChatRoomsController = require('../controllers/ChatRoomsController');
+const CounterNonReadMessagesChatRoomController = require('../controllers/CounterNonReadMessagesChatRoomController');
+const CounterChatRoomsWithNonReadMessagesController = require('../controllers/CounterChatRoomsWithNonReadMessagesController');
 
 const ensureAuthentication = require('../../../../../shared/infra/http/middlewares/ensureAuthentication');
 const validateParams = require('../../../../../shared/infra/http/middlewares/validateParams');
@@ -12,6 +14,8 @@ const validateParams = require('../../../../../shared/infra/http/middlewares/val
 const {
   listChatRoomSchema,
   storeChatRoomSchema,
+  chatRoomsWithNonReadMessagesSchema,
+  nonReadMessagesChatRoomSchema,
 } = require('../schemas/chatRooms.schemas');
 
 const chatRoomsRoutes = Router();
@@ -24,6 +28,17 @@ const chatRoomsController = new ChatRoomsController({
   ticketRepository,
   userRepository,
 });
+const counterNonReadMessagesChatRoomController = new CounterNonReadMessagesChatRoomController(
+  {
+    chatRoomsRepository,
+  },
+);
+const counterChatRoomsWithNonReadMessagesController = new CounterChatRoomsWithNonReadMessagesController(
+  {
+    chatRoomsRepository,
+    userRepository,
+  },
+);
 
 chatRoomsRoutes.post(
   '/createchatroom',
@@ -35,6 +50,24 @@ chatRoomsRoutes.get(
   '/chatroomsbyuser',
   [ensureAuthentication, validateParams({ schema: listChatRoomSchema })],
   chatRoomsController.index,
+);
+
+chatRoomsRoutes.get(
+  '/chat-rooms/non-read-messages',
+  [
+    ensureAuthentication,
+    validateParams({ schema: chatRoomsWithNonReadMessagesSchema }),
+  ],
+  counterChatRoomsWithNonReadMessagesController.index,
+);
+
+chatRoomsRoutes.get(
+  '/chat-rooms/:chat_room_id/non-read-messages',
+  [
+    ensureAuthentication,
+    validateParams({ schema: nonReadMessagesChatRoomSchema }),
+  ],
+  counterNonReadMessagesChatRoomController.index,
 );
 
 module.exports = chatRoomsRoutes;

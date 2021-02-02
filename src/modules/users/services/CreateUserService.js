@@ -15,9 +15,9 @@ class CreateUserService {
       profile,
     });
 
-    user.password = undefined;
-
     user = await this.userRepository.saveUser({ user });
+
+    user.password = undefined;
     return { user };
   }
 }

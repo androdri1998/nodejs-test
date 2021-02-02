@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 require('dotenv').config({
   path: '.env',
 });
@@ -19,6 +18,7 @@ const logRequest = require('./middlewares/logRequest');
 const DebugProvider = require('../../providers/LogProvider/implementations/DebugProvider');
 const ChatRoomsRepository = require('../../../modules/chats/infra/mongoose/repositories/ChatRoomsRepository/implementations/ChatRoomsRepository');
 const AddMessageChatRoomService = require('../../../modules/chats/services/AddMessageChatRoomService');
+const SetNonReadMessageChatRoomToReadedService = require('../../../modules/chats/services/SetNonReadMessageChatRoomToReadedService');
 const routes = require('./routes');
 
 const debugProvider = new DebugProvider('api:main');
@@ -54,10 +54,22 @@ io.on('connection', socket => {
     socket.broadcast.emit('messageReceived', response);
   });
 
-  socket.on('setMessageReaded', ({ messageId }) => {
-    console.log({ messageId });
+  socket.on('setMessageReaded', async ({ messageId, chatRoomId }) => {
+    const chatRoomsRepository = new ChatRoomsRepository({
+      connection: mongoose,
+    });
+    const setNonReadMessageChatRoomToReadedService = new SetNonReadMessageChatRoomToReadedService(
+      {
+        chatRoomsRepository,
+      },
+    );
 
-    socket.broadcast.emit('setClientMessageReaded', { messageId });
+    const response = await setNonReadMessageChatRoomToReadedService.execute({
+      messageId,
+      chatRoomId,
+    });
+
+    socket.broadcast.emit('setClientMessageReaded', response);
   });
 });
 
