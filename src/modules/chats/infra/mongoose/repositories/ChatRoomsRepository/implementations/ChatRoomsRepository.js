@@ -106,7 +106,7 @@ class ChatRoomsRepository {
     return chatRoom;
   }
 
-  async findChatRoomsWithNonReadMessagesToUserNormal() {
+  async findChatRoomsWithUnreadMessagesToUserNormal() {
     const chatRooms = await ChatRoom.find({
       permission: 'normal',
       'messages.readed': false,
@@ -115,13 +115,13 @@ class ChatRoomsRepository {
     return chatRooms;
   }
 
-  async findChatRoomsWithNonReadMessages() {
+  async findChatRoomsWithUnreadMessages() {
     const chatRooms = await ChatRoom.find({ 'messages.readed': false });
 
     return chatRooms;
   }
 
-  async setNonReadMessageChatRoomToReaded({ messageId, chatRoomId }) {
+  async setUnreadMessageChatRoomToReaded({ messageId, chatRoomId }) {
     const chatRoom = await ChatRoom.updateOne(
       { _id: chatRoomId, 'messages._id': messageId },
       {

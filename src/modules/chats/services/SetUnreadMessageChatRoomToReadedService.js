@@ -1,4 +1,4 @@
-class SetNonReadMessageChatRoomToReadedService {
+class SetUnreadMessageChatRoomToReadedService {
   constructor({ chatRoomsRepository }) {
     this.chatRoomsRepository = chatRoomsRepository;
 
@@ -6,7 +6,7 @@ class SetNonReadMessageChatRoomToReadedService {
   }
 
   async execute({ chatRoomId, messageId }) {
-    await this.chatRoomsRepository.setNonReadMessageChatRoomToReaded({
+    await this.chatRoomsRepository.setUnreadMessageChatRoomToReaded({
       chatRoomId,
       messageId,
     });
@@ -19,4 +19,4 @@ class SetNonReadMessageChatRoomToReadedService {
   }
 }
 
-module.exports = SetNonReadMessageChatRoomToReadedService;
+module.exports = SetUnreadMessageChatRoomToReadedService;

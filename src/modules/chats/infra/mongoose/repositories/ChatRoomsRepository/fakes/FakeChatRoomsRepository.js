@@ -102,7 +102,7 @@ class FakeChatRoomsRepository {
     return chatRoom;
   }
 
-  async findChatRoomsWithNonReadMessagesToUserNormal() {
+  async findChatRoomsWithUnreadMessagesToUserNormal() {
     const chatRooms = this.chatRooms.filter(chatRoomFind => {
       const isProfileNormal = chatRoomFind.permission === 'normal';
 
@@ -114,7 +114,7 @@ class FakeChatRoomsRepository {
     return chatRooms;
   }
 
-  async findChatRoomsWithNonReadMessages() {
+  async findChatRoomsWithUnreadMessages() {
     const chatRooms = this.chatRooms.filter(chatRoomFind => {
       const messages = chatRoomFind.messages.filter(message => !message.readed);
 
@@ -124,7 +124,7 @@ class FakeChatRoomsRepository {
     return chatRooms;
   }
 
-  async setNonReadMessageChatRoomToReaded({ messageId, chatRoomId }) {
+  async setUnreadMessageChatRoomToReaded({ messageId, chatRoomId }) {
     let chatRoom = null;
     this.chatRooms.forEach(chatRoomFind => {
       if (chatRoomId === chatRoomFind._id) {

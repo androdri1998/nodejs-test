@@ -1,0 +1,773 @@
+swagger: "2.0"
+info:
+  description: "This is a sample documentation to describe how use the test application."
+  version: "1.0.0"
+  title: "NodeJS Test"
+host: "localhost:8080"
+basePath: "/api"
+tags:
+- name: "Tickets"
+  description: "Manage tickets"
+- name: "Users"
+  description: "Manage users"
+- name: "Chat Rooms"
+  description: "Manage chat rooms"
+- name: "Participants"
+  description: "Manage participants of chat room"
+- name: "Messages"
+  description: "Manage messages of chat room"
+schemes:
+- "http"
+paths:
+  /tickets:
+    post:
+      tags:
+      - "Tickets"
+      summary: "Create a new ticket"
+      description: ""
+      operationId: "addTicket"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Object required to add a new ticket, on this case is required to send a form data."
+        required: true
+        schema:
+          $ref: "#/definitions/TicketParams"
+      responses:
+        "201":
+          description: "Successful operation."
+          schema:
+            $ref: "#/definitions/TicketResponse"
+        "400":
+          description: "Something went wrong. Read field 'error' to get more details about error."
+          schema:
+            $ref: "#/definitions/Error"
+        "401":
+          description: "Something went wrong. Read field 'error' to get more details about error."
+          schema:
+            $ref: "#/definitions/Error"
+        "500":
+          description: "Something went wrong. Read field 'error' to get more details about error."
+          schema:
+            $ref: "#/definitions/Error"
+  /tickets/{ticket_id}:
+    get:
+      tags:
+      - "Tickets"
+      summary: "Get ticket's details"
+      description: ""
+      operationId: "getTicket"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "ticket_id"
+        description: "Id of ticket to be detailed."
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Successful operation."
+          schema:
+            $ref: "#/definitions/TicketDetailsResponse"
+        "400":
+          description: "Something went wrong. Read field 'error' to get more details about error."
+          schema:
+            $ref: "#/definitions/Error"
+        "401":
+          description: "Something went wrong. Read field 'error' to get more details about error."
+          schema:
+            $ref: "#/definitions/Error"
+        "500":
+          description: "Something went wrong. Read field 'error' to get more details about error."
+          schema:
+            $ref: "#/definitions/Error"
+  /users:
+    post:
+      tags:
+      - "Users"
+      summary: "Add a new user to application"
+      description: ""
+      operationId: "addUser"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Object required to add a new user."
+        required: true
+        schema:
+          $ref: "#/definitions/AddUserParams"
+      responses:
+        "201":
+          description: "Successful operation."
+          schema:
+            $ref: "#/definitions/AddUserResponse"
+        "400":
+          description: "Something went wrong. Read field 'error' to get more details about error."
+          schema:
+            $ref: "#/definitions/Error"
+        "500":
+          description: "Something went wrong. Read field 'error' to get more details about error."
+          schema:
+            $ref: "#/definitions/Error"
+  /users/auth:
+    post:
+      tags:
+      - "Users"
+      summary: "Authenticate user on application"
+      description: ""
+      operationId: "authenticateUser"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Object required to authenticate a user."
+        required: true
+        schema:
+          $ref: "#/definitions/AuthenticateUserParams"
+      responses:
+        "200":
+          description: "Successful operation."
+          schema:
+            $ref: "#/definitions/AuthenticateUserResponse"
+        "400":
+          description: "Something went wrong. Read field 'error' to get more details about error."
+          schema:
+            $ref: "#/definitions/Error"
+        "401":
+          description: "Something went wrong. Read field 'error' to get more details about error."
+          schema:
+            $ref: "#/definitions/Error"
+        "500":
+          description: "Something went wrong. Read field 'error' to get more details about error."
+          schema:
+            $ref: "#/definitions/Error"
+  /users/{user_id}:
+    get:
+      tags:
+      - "Users"
+      summary: "Get user's details"
+      description: ""
+      operationId: "getUser"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "user_id"
+        description: "Id of user to be detailed."
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Successful operation."
+          schema:
+            $ref: "#/definitions/UserResponse"
+        "400":
+          description: "Something went wrong. Read field 'error' to get more details about error."
+          schema:
+            $ref: "#/definitions/Error"
+        "401":
+          description: "Something went wrong. Read field 'error' to get more details about error."
+          schema:
+            $ref: "#/definitions/Error"
+        "404":
+          description: "Something went wrong. Read field 'error' to get more details about error."
+          schema:
+            $ref: "#/definitions/Error"
+        "500":
+          description: "Something went wrong. Read field 'error' to get more details about error."
+          schema:
+            $ref: "#/definitions/Error"
+  /createchatroom:
+    post:
+      tags:
+      - "Chat Rooms"
+      summary: "Create chat room"
+      description: ""
+      operationId: "createChatRoom"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Object required to create a chat room."
+        required: true
+        schema:
+          $ref: "#/definitions/CreateChatRoomParams"
+      responses:
+        "201":
+          description: "Successful operation."
+          schema:
+            $ref: "#/definitions/CreateChatRoomResponse"
+        "400":
+          description: "Something went wrong. Read field 'error' to get more details about error."
+          schema:
+            $ref: "#/definitions/Error"
+        "401":
+          description: "Something went wrong. Read field 'error' to get more details about error."
+          schema:
+            $ref: "#/definitions/Error"
+        "404":
+          description: "Something went wrong. Read field 'error' to get more details about error."
+          schema:
+            $ref: "#/definitions/Error"
+        "500":
+          description: "Something went wrong. Read field 'error' to get more details about error."
+          schema:
+            $ref: "#/definitions/Error"
+  /chatroomsbyuser:
+    get:
+      tags:
+      - "Chat Rooms"
+      summary: "List chat rooms"
+      description: ""
+      operationId: "getChatRooms"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "query"
+        name: "userId"
+        description: "Id of user to validate list of chat rooms"
+        required: true
+        type: "string"
+      - in: "query"
+        name: "limit"
+        description: "Limit of results per page"
+        type: "number"
+      - in: "query"
+        name: "offset"
+        description: "Starting from this result line"
+        type: "number"
+      - in: "query"
+        name: "term"
+        description: "Search by id of chat room or some key word of description"
+        type: "string"
+      responses:
+        "200":
+          description: "Successful operation."
+          schema:
+            $ref: "#/definitions/CreateChatRoomsResponse"
+        "400":
+          description: "Something went wrong. Read field 'error' to get more details about error."
+          schema:
+            $ref: "#/definitions/Error"
+        "401":
+          description: "Something went wrong. Read field 'error' to get more details about error."
+          schema:
+            $ref: "#/definitions/Error"
+        "404":
+          description: "Something went wrong. Read field 'error' to get more details about error."
+          schema:
+            $ref: "#/definitions/Error"
+        "500":
+          description: "Something went wrong. Read field 'error' to get more details about error."
+          schema:
+            $ref: "#/definitions/Error"
+  /chat-room/{chat_room_id}/participants:
+    post:
+      tags:
+      - "Participants"
+      summary: "Add participant to chat room"
+      description: ""
+      operationId: "addParticipantToChatRoom"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "chat_room_id"
+        description: "id of chat room to add participant."
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Object required to add participant to chat room."
+        required: true
+        schema:
+          $ref: "#/definitions/AddParticipantChatRoomParams"
+      responses:
+        "201":
+          description: "Successful operation."
+          schema:
+            $ref: "#/definitions/AddParticipantChatRoomResponse"
+        "400":
+          description: "Something went wrong. Read field 'error' to get more details about error."
+          schema:
+            $ref: "#/definitions/Error"
+        "401":
+          description: "Something went wrong. Read field 'error' to get more details about error."
+          schema:
+            $ref: "#/definitions/Error"
+        "404":
+          description: "Something went wrong. Read field 'error' to get more details about error."
+          schema:
+            $ref: "#/definitions/Error"
+        "500":
+          description: "Something went wrong. Read field 'error' to get more details about error."
+          schema:
+            $ref: "#/definitions/Error"
+    get:
+      tags:
+      - "Participants"
+      summary: "List participants of a chat room"
+      description: ""
+      operationId: "listParticipantsOfChatRoom"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "chat_room_id"
+        description: "id of chat room to list participants."
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Successful operation."
+          schema:
+            $ref: "#/definitions/ListParticipantsOfChatRoomResponse"
+        "400":
+          description: "Something went wrong. Read field 'error' to get more details about error."
+          schema:
+            $ref: "#/definitions/Error"
+        "401":
+          description: "Something went wrong. Read field 'error' to get more details about error."
+          schema:
+            $ref: "#/definitions/Error"
+        "500":
+          description: "Something went wrong. Read field 'error' to get more details about error."
+          schema:
+            $ref: "#/definitions/Error"
+  /chatmessages/{ticketId}:
+    get:
+      tags:
+      - "Messages"
+      summary: "List messages of a chat room"
+      description: ""
+      operationId: "listMessagesOfChatRoom"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "ticketId"
+        description: "id of chat room to list messages."
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Successful operation."
+          schema:
+            $ref: "#/definitions/ListMessagesOfChatRoomResponse"
+        "400":
+          description: "Something went wrong. Read field 'error' to get more details about error."
+          schema:
+            $ref: "#/definitions/Error"
+        "401":
+          description: "Something went wrong. Read field 'error' to get more details about error."
+          schema:
+            $ref: "#/definitions/Error"
+        "500":
+          description: "Something went wrong. Read field 'error' to get more details about error."
+          schema:
+            $ref: "#/definitions/Error"
+  /chat-rooms/unread-messages:
+    get:
+      tags:
+      - "Messages"
+      summary: "Counter chat rooms with unread-messages"
+      description: ""
+      operationId: "CounterChatRoomWithUnreadMessages"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "Successful operation."
+          schema:
+            $ref: "#/definitions/ChatRoomWithUnreadMessagesResponse"
+        "400":
+          description: "Something went wrong. Read field 'error' to get more details about error."
+          schema:
+            $ref: "#/definitions/Error"
+        "401":
+          description: "Something went wrong. Read field 'error' to get more details about error."
+          schema:
+            $ref: "#/definitions/Error"
+        "404":
+          description: "Something went wrong. Read field 'error' to get more details about error."
+          schema:
+            $ref: "#/definitions/Error"
+        "500":
+          description: "Something went wrong. Read field 'error' to get more details about error."
+          schema:
+            $ref: "#/definitions/Error"
+  /chat-rooms/{chat_room_id}/unread-messages:
+    get:
+      tags:
+      - "Messages"
+      summary: "Counter unread-messages from chat rooms"
+      description: ""
+      operationId: "CounterUnreadMessagesFromChatRoom"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "chat_room_id"
+        description: "id of chat room to count unread-messages."
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Successful operation."
+          schema:
+            $ref: "#/definitions/UnreadMessagesFromChatRoomResponse"
+        "400":
+          description: "Something went wrong. Read field 'error' to get more details about error."
+          schema:
+            $ref: "#/definitions/Error"
+        "401":
+          description: "Something went wrong. Read field 'error' to get more details about error."
+          schema:
+            $ref: "#/definitions/Error"
+        "500":
+          description: "Something went wrong. Read field 'error' to get more details about error."
+          schema:
+            $ref: "#/definitions/Error"
+definitions:
+  Error:
+    type: "object"
+    properties:
+      status:
+        type: "string"
+      error:
+        type: "string"
+  Ticket:
+    type: "object"
+    properties:
+      deleted_at:
+        type: "string"
+        format: "datetime"
+      _id:
+        type: "string"
+      title:
+        type: "string"
+      description:
+        type: "string"
+      permalink:
+        type: "string"
+      created_at:
+        type: "string"
+        format: "datetime"
+      updated_at:
+        type: "string"
+        format: "datetime"
+      __v:
+        type: "integer"
+  TicketParams:
+    type: "object"
+    properties:
+      title:
+        type: "string"
+      description:
+        type: "string"
+      image:
+        type: "string"
+        format: "binary"
+  TicketDetailsResponse:
+    type: "object"
+    properties:
+      ticket:
+        type: "object"
+        properties:
+          deleted_at:
+            type: "string"
+            format: "datetime"
+          _id:
+            type: "string"
+          title:
+            type: "string"
+          description:
+            type: "string"
+          permalink:
+            type: "string"
+          created_at:
+            type: "string"
+            format: "datetime"
+          updated_at:
+            type: "string"
+            format: "datetime"
+          __v:
+            type: "integer"
+          url:
+            type: "string"
+  TicketResponse:
+    type: "object"
+    properties:
+      ticket:
+        $ref: "#/definitions/Ticket"
+  AddUserParams:
+    type: "object"
+    properties:
+      username:
+        type: "string"
+      password:
+        type: "string"
+      profile:
+        type: "string"
+  User:
+    type: "object"
+    properties:
+      deleted_at:
+        type: "string"
+      _id:
+        type: "string"
+      username:
+        type: "string"
+      profile:
+        type: "string"
+      created_at:
+        type: "string"
+      updated_at:
+        type: "string"
+      __v:
+        type: "integer"
+  AddUserResponse:
+    type: "object"
+    properties:
+      user:
+        $ref: "#/definitions/User"
+  AuthenticateUserParams:
+    type: "object"
+    properties:
+      username:
+        type: "string"
+      password:
+        type: "string"
+  AuthenticateUserResponse:
+    type: "object"
+    properties:
+      user:
+        $ref: "#/definitions/User"
+      token:
+        type: "string"
+  UserResponse:
+    type: "object"
+    properties:
+      user:
+        $ref: "#/definitions/User"
+  CreateChatRoomParams:
+    type: "object"
+    properties:
+      ticket_id:
+        type: "string"
+      description:
+        type: "string"
+      permalink:
+        type: "string"
+      permission:
+        type: "string"
+      participants:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            userId:
+              type: "string"
+  CreateChatRoomResponse:
+    type: "object"
+    properties:
+      chat_room:
+        type: "object"
+        properties:
+          deleted_at:
+            type: "string"
+          _id:
+            type: "string"
+          ticket_id:
+            type: "string"
+          description:
+            type: "string"
+          permalink:
+            type: "string"
+          permission:
+            type: "string"
+          participants:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                userId:
+                  type: "string"
+          messages:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                readed:
+                  type: "boolean"
+                deleted_at:
+                  type: "string"
+                _id:
+                  type: "string"
+                userId:
+                  type: "string"
+                content:
+                  type: "string"
+                created_at:
+                  type: "string"
+                updated_at:
+                  type: "string"
+          created_at:
+            type: "string"
+          updated_at:
+            type: "string"
+          __v:
+            type: "string"
+  CreateChatRoomsResponse:
+    type: "object"
+    properties:
+      chat_rooms:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            deleted_at:
+              type: "string"
+            _id:
+              type: "string"
+            ticket_id:
+              type: "string"
+            description:
+              type: "string"
+            permalink:
+              type: "string"
+            permission:
+              type: "string"
+            participants:
+              type: "array"
+              items:
+                type: "object"
+                properties:
+                  userId:
+                    type: "string"
+            messages:
+              type: "array"
+              items:
+                type: "object"
+                properties:
+                  readed:
+                    type: "boolean"
+                  deleted_at:
+                    type: "string"
+                  _id:
+                    type: "string"
+                  userId:
+                    type: "string"
+                  content:
+                    type: "string"
+                  created_at:
+                    type: "string"
+                  updated_at:
+                    type: "string"
+            created_at:
+              type: "string"
+            updated_at:
+              type: "string"
+            __v:
+              type: "string"
+  AddParticipantChatRoomParams:
+    type: "object"
+    properties:
+      userId:
+        type: "string"
+  AddParticipantChatRoomResponse:
+    type: "object"
+    properties:
+      participants:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            _id:
+              type: "string"
+            userId:
+              type: "string"
+  ListParticipantsOfChatRoomResponse:
+    type: "object"
+    properties:
+      participants:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            deleted_at:
+              type: "string"
+            _id:
+              type: "string"
+            username:
+              type: "string"
+            profile:
+              type: "string"
+            created_at:
+              type: "string"
+            updated_at:
+              type: "string"
+            __v:
+              type: "integer"
+  ListMessagesOfChatRoomResponse:
+    type: "object"
+    properties:
+      messages:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            readed:
+              type: "boolean"
+            deleted_at:
+              type: "string"
+            _id:
+              type: "string"
+            userId:
+              type: "string"
+            content:
+              type: "string"
+            created_at:
+              type: "string"
+            updated_at:
+              type: "string"
+  ChatRoomWithUnreadMessagesResponse:
+    type: "object"
+    properties:
+      amount_chat_rooms_with_unread_messages:
+        type: "integer"
+  UnreadMessagesFromChatRoomResponse:
+    type: "object"
+    properties:
+      amount_unread_messages_chat_room:
+        type: "integer"

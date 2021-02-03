@@ -1,20 +1,20 @@
-const CounterNonReadMessagesChatRoomService = require('./CounterNonReadMessagesChatRoomService');
+const CounterUnreadMessagesChatRoomService = require('./CounterUnreadMessagesChatRoomService');
 const FakeChatRoomsRepository = require('../infra/mongoose/repositories/ChatRoomsRepository/fakes/FakeChatRoomsRepository');
 
 let fakeChatRoomsRepository;
-let counterNonReadMessagesChatRoomService;
+let counterUnreadMessagesChatRoomService;
 
 describe('CounterNonReadMessagesChatRoomService', () => {
   beforeEach(() => {
     fakeChatRoomsRepository = new FakeChatRoomsRepository({ connection: null });
-    counterNonReadMessagesChatRoomService = new CounterNonReadMessagesChatRoomService(
+    counterUnreadMessagesChatRoomService = new CounterUnreadMessagesChatRoomService(
       {
         chatRoomsRepository: fakeChatRoomsRepository,
       },
     );
   });
 
-  it('should be able to list counter of non-read-messages at chat room', async () => {
+  it('should be able to list counter of unread-messages at chat room', async () => {
     const chatRoom = {
       deleted_at: null,
       _id: 'test_id',
@@ -52,10 +52,10 @@ describe('CounterNonReadMessagesChatRoomService', () => {
 
     await fakeChatRoomsRepository.saveChatRoom({ chatRoom });
 
-    const response = await counterNonReadMessagesChatRoomService.execute({
+    const response = await counterUnreadMessagesChatRoomService.execute({
       chatRoomId: 'test_id',
     });
 
-    expect(response.amount_non_read_messages_chat_room).toBe(1);
+    expect(response.amount_unread_messages_chat_room).toBe(1);
   });
 });

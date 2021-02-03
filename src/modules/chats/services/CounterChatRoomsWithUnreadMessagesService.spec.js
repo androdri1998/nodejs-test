@@ -1,17 +1,17 @@
 const AppError = require('../../../shared/errors/AppError');
-const CounterChatRoomsWithNonReadMessagesService = require('./CounterChatRoomsWithNonReadMessagesService');
+const CounterChatRoomsWithUnreadMessagesService = require('./CounterChatRoomsWithUnreadMessagesService');
 const FakeChatRoomsRepository = require('../infra/mongoose/repositories/ChatRoomsRepository/fakes/FakeChatRoomsRepository');
 const FakeUserRepository = require('../../users/infra/mongoose/repositories/UserRepository/fakes/FakeUserRepository');
 
 let fakeChatRoomsRepository;
 let fakeUserRepository;
-let counterChatRoomsWithNonReadMessagesService;
+let counterChatRoomsWithUnreadMessagesService;
 
-describe('CounterChatRoomsWithNonReadMessagesService', () => {
+describe('CounterChatRoomsWithUnreadMessagesService', () => {
   beforeEach(() => {
     fakeChatRoomsRepository = new FakeChatRoomsRepository({ connection: null });
     fakeUserRepository = new FakeUserRepository({ connection: null });
-    counterChatRoomsWithNonReadMessagesService = new CounterChatRoomsWithNonReadMessagesService(
+    counterChatRoomsWithUnreadMessagesService = new CounterChatRoomsWithUnreadMessagesService(
       {
         chatRoomsRepository: fakeChatRoomsRepository,
         userRepository: fakeUserRepository,
@@ -19,7 +19,7 @@ describe('CounterChatRoomsWithNonReadMessagesService', () => {
     );
   });
 
-  it('should be able to list counter of chat rooms with non-read-messages', async () => {
+  it('should be able to list counter of chat rooms with unread-messages', async () => {
     const user = {
       _id: 'c177529b-f7da-4ccb-a4bb-c7212620628a',
       username: 'john doe',
@@ -69,14 +69,14 @@ describe('CounterChatRoomsWithNonReadMessagesService', () => {
 
     await fakeChatRoomsRepository.saveChatRoom({ chatRoom });
 
-    const response = await counterChatRoomsWithNonReadMessagesService.execute({
+    const response = await counterChatRoomsWithUnreadMessagesService.execute({
       userId: 'c177529b-f7da-4ccb-a4bb-c7212620628a',
     });
 
-    expect(response.amount_chat_rooms_with_non_read_messages).toBe(1);
+    expect(response.amount_chat_rooms_with_unread_messages).toBe(1);
   });
 
-  it('should not be able to list counter of chat rooms with non-read-messages with a non-existing-user', async () => {
+  it('should not be able to list counter of chat rooms with unread-messages with a non-existing-user', async () => {
     const chatRoom = {
       deleted_at: null,
       _id: 'test_id',
@@ -115,7 +115,7 @@ describe('CounterChatRoomsWithNonReadMessagesService', () => {
     await fakeChatRoomsRepository.saveChatRoom({ chatRoom });
 
     await expect(
-      counterChatRoomsWithNonReadMessagesService.execute({
+      counterChatRoomsWithUnreadMessagesService.execute({
         userId: 'non-existing-user',
       }),
     ).rejects.toBeInstanceOf(AppError);

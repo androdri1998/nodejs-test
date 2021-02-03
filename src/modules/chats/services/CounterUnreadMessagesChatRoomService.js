@@ -1,4 +1,4 @@
-class CounterNonReadMessagesChatRoomService {
+class CounterUnreadMessagesChatRoomService {
   constructor({ chatRoomsRepository }) {
     this.chatRoomsRepository = chatRoomsRepository;
 
@@ -13,9 +13,9 @@ class CounterNonReadMessagesChatRoomService {
     const messages = chatRoom.messages.filter(message => !message.readed);
 
     return {
-      amount_non_read_messages_chat_room: messages.length,
+      amount_unread_messages_chat_room: messages.length,
     };
   }
 }
 
-module.exports = CounterNonReadMessagesChatRoomService;
+module.exports = CounterUnreadMessagesChatRoomService;

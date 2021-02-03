@@ -40,6 +40,8 @@ class AuthenticateUserService {
       expiresIn,
     });
 
+    user.password = undefined;
+
     return { user, token };
   }
 }

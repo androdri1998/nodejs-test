@@ -7,7 +7,7 @@ const chatRoutes = require('../../../../modules/chats/infra/http/routes');
 const routes = Router();
 
 routes.use('/api', chatRoutes);
-routes.use('/users', usersRoutes);
-routes.use('/tickets', ticketsRoutes);
+routes.use('/api/users', usersRoutes);
+routes.use('/api/tickets', ticketsRoutes);
 
 module.exports = routes;

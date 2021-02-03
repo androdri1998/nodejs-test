@@ -2,8 +2,6 @@ node_modules/
 
 .env
 
-tasks.txt
-
 tmp/*
 !tmp/uploads
 tmp/uploads/*

@@ -1,8 +1,8 @@
 const HTTPStatusCodes = require('http-status-codes');
 
-const CounterChatRoomsWithNonReadMessagesService = require('../../../services/CounterChatRoomsWithNonReadMessagesService');
+const CounterChatRoomsWithUnreadMessagesService = require('../../../services/CounterChatRoomsWithUnreadMessagesService');
 
-class CounterChatRoomsWithNonReadMessagesController {
+class CounterChatRoomsWithUnreadMessagesController {
   constructor({ chatRoomsRepository, userRepository }) {
     this.chatRoomsRepository = chatRoomsRepository;
     this.userRepository = userRepository;
@@ -13,14 +13,14 @@ class CounterChatRoomsWithNonReadMessagesController {
   async index(req, res) {
     const { id: userId } = req.user;
 
-    const counterChatRoomsWithNonReadMessagesService = new CounterChatRoomsWithNonReadMessagesService(
+    const counterChatRoomsWithUnreadMessagesService = new CounterChatRoomsWithUnreadMessagesService(
       {
         chatRoomsRepository: this.chatRoomsRepository,
         userRepository: this.userRepository,
       },
     );
 
-    const response = await counterChatRoomsWithNonReadMessagesService.execute({
+    const response = await counterChatRoomsWithUnreadMessagesService.execute({
       userId,
     });
 
@@ -28,4 +28,4 @@ class CounterChatRoomsWithNonReadMessagesController {
   }
 }
 
-module.exports = CounterChatRoomsWithNonReadMessagesController;
+module.exports = CounterChatRoomsWithUnreadMessagesController;

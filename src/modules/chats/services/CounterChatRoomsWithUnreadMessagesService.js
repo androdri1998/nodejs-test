@@ -1,7 +1,7 @@
 const HTTPStatusCodes = require('http-status-codes');
 const AppError = require('../../../shared/errors/AppError');
 
-class CounterChatRoomsWithNonReadMessagesService {
+class CounterChatRoomsWithUnreadMessagesService {
   constructor({ chatRoomsRepository, userRepository }) {
     this.chatRoomsRepository = chatRoomsRepository;
     this.userRepository = userRepository;
@@ -23,13 +23,13 @@ class CounterChatRoomsWithNonReadMessagesService {
 
     let chatRooms = [];
     if (user.profile === 'normal') {
-      chatRooms = await this.chatRoomsRepository.findChatRoomsWithNonReadMessagesToUserNormal();
+      chatRooms = await this.chatRoomsRepository.findChatRoomsWithUnreadMessagesToUserNormal();
     } else {
-      chatRooms = await this.chatRoomsRepository.findChatRoomsWithNonReadMessages();
+      chatRooms = await this.chatRoomsRepository.findChatRoomsWithUnreadMessages();
     }
 
-    return { amount_chat_rooms_with_non_read_messages: chatRooms.length };
+    return { amount_chat_rooms_with_unread_messages: chatRooms.length };
   }
 }
 
-module.exports = CounterChatRoomsWithNonReadMessagesService;
+module.exports = CounterChatRoomsWithUnreadMessagesService;

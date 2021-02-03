@@ -18,7 +18,7 @@ const logRequest = require('./middlewares/logRequest');
 const DebugProvider = require('../../providers/LogProvider/implementations/DebugProvider');
 const ChatRoomsRepository = require('../../../modules/chats/infra/mongoose/repositories/ChatRoomsRepository/implementations/ChatRoomsRepository');
 const AddMessageChatRoomService = require('../../../modules/chats/services/AddMessageChatRoomService');
-const SetNonReadMessageChatRoomToReadedService = require('../../../modules/chats/services/SetNonReadMessageChatRoomToReadedService');
+const SetUnreadMessageChatRoomToReadedService = require('../../../modules/chats/services/SetUnreadMessageChatRoomToReadedService');
 const routes = require('./routes');
 
 const debugProvider = new DebugProvider('api:main');
@@ -58,13 +58,13 @@ io.on('connection', socket => {
     const chatRoomsRepository = new ChatRoomsRepository({
       connection: mongoose,
     });
-    const setNonReadMessageChatRoomToReadedService = new SetNonReadMessageChatRoomToReadedService(
+    const setUnreadMessageChatRoomToReadedService = new SetUnreadMessageChatRoomToReadedService(
       {
         chatRoomsRepository,
       },
     );
 
-    const response = await setNonReadMessageChatRoomToReadedService.execute({
+    const response = await setUnreadMessageChatRoomToReadedService.execute({
       messageId,
       chatRoomId,
     });

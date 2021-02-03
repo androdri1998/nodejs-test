@@ -1,20 +1,20 @@
-const SetNonReadMessageChatRoomToReadedService = require('./SetNonReadMessageChatRoomToReadedService');
+const SetUnreadMessageChatRoomToReadedService = require('./SetUnreadMessageChatRoomToReadedService');
 const FakeChatRoomsRepository = require('../infra/mongoose/repositories/ChatRoomsRepository/fakes/FakeChatRoomsRepository');
 
 let fakeChatRoomsRepository;
-let setNonReadMessageChatRoomToReadedService;
+let setUnreadMessageChatRoomToReadedService;
 
-describe('AddSetNonReadMessageChatRoomToReadedService', () => {
+describe('SetUnreadMessageChatRoomToReadedService', () => {
   beforeEach(() => {
     fakeChatRoomsRepository = new FakeChatRoomsRepository({ connection: null });
-    setNonReadMessageChatRoomToReadedService = new SetNonReadMessageChatRoomToReadedService(
+    setUnreadMessageChatRoomToReadedService = new SetUnreadMessageChatRoomToReadedService(
       {
         chatRoomsRepository: fakeChatRoomsRepository,
       },
     );
   });
 
-  it('should be able to update a non-read-message to readed', async () => {
+  it('should be able to update a unread-message to readed', async () => {
     const chatRoom = {
       deleted_at: null,
       _id: 'test_id',
@@ -77,7 +77,7 @@ describe('AddSetNonReadMessageChatRoomToReadedService', () => {
       ],
     };
 
-    const response = await setNonReadMessageChatRoomToReadedService.execute({
+    const response = await setUnreadMessageChatRoomToReadedService.execute({
       chatRoomId: 'test_id',
       messageId: 'test_id_message',
     });
